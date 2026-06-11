@@ -132,10 +132,18 @@
   /* SPEED BANNER */
   .speed{
     background:var(--panel); border:1px solid var(--line); border-radius:12px;
-    padding:40px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;
+    padding:52px 56px; text-align:center;
   }
-  .speed h2{font-family:'Space Grotesk'; font-weight:600; font-size:clamp(22px,3.4vw,32px); line-height:1.25; max-width:560px;}
-  .speed h2 em{font-style:normal; color:var(--amber);}
+  .speed .quote-mark{font-family:'Space Grotesk'; font-size:72px; line-height:.6; color:var(--led); opacity:.35; margin-bottom:20px;}
+  .speed blockquote{
+    font-family:'Space Grotesk'; font-weight:600; font-size:clamp(20px,2.6vw,28px);
+    line-height:1.45; color:var(--text); max-width:780px; margin:0 auto;
+  }
+  .speed cite{
+    display:block; margin-top:28px;
+    font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--faint); font-style:normal;
+  }
 
   /* CONTACT */
   .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
@@ -352,8 +360,9 @@
 
   <section>
     <div class="speed">
-      <h2>Most agencies take six weeks to send a proposal.<br><em>I'll have it live.</em></h2>
-      <a class="btn primary" href="mailto:jeremiah@creativekonsoles.com">Get a fixed quote</a>
+      <div class="quote-mark">"</div>
+      <blockquote>Most agencies are 4–6 weeks for a proposal to be sent. You and I will have taken an idea, developed it, built it, and it will be live in less time than that proposal will take.</blockquote>
+      <cite>— Jeremiah Smith, Creative Konsoles</cite>
     </div>
   </section>
 
