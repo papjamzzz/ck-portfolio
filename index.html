@@ -74,10 +74,9 @@
   /* SECTION HEADERS */
   section{padding:72px 0; border-top:1px solid var(--line);}
   .sec-label{
-    font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.2em;
-    text-transform:uppercase; color:#c0c3cc; margin-bottom:36px;
+    font-family:'Space Grotesk'; font-size:22px; font-weight:700;
+    letter-spacing:-0.01em; color:var(--text); margin-bottom:36px;
   }
-  .sec-label b{color:var(--amber); font-weight:500;}
 
   /* PROCESS */
   .process{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
@@ -201,7 +200,7 @@
   </div>
 
   <section>
-    <div class="sec-label"><b>01</b> — How I build</div>
+    <div class="sec-label">How I build</div>
     <div class="process">
       <div class="step">
         <div class="day">Day 1</div>
@@ -222,7 +221,7 @@
   </section>
 
   <section>
-    <div class="sec-label"><b>02</b> — Shipped &amp; running</div>
+    <div class="sec-label">Shipped &amp; running</div>
     <div class="console">
       <a class="channel live" href="https://stream.creativekonsoles.com" target="_blank" rel="noopener">
         <div class="fader" style="--pos:8%"></div>
@@ -294,7 +293,7 @@
   </section>
 
   <section>
-    <div class="sec-label"><b>03</b> — Stack · AI-native by default</div>
+    <div class="sec-label">Stack · AI-native by default</div>
     <p style="color:#ced2db; font-size:15px; line-height:1.7; max-width:640px; margin-bottom:28px;">AI isn't a feature I bolt on — it's how I build. I work across every major model provider and pick the right engine for each job: consensus systems that pit five models against each other, preference engines that learn from every click, and interfaces that respond to live data in real time.</p>
     <div class="stack">
       <span class="chip">React</span>
@@ -317,7 +316,7 @@
   </section>
 
   <section>
-    <div class="sec-label"><b>05</b> — Start a build</div>
+    <div class="sec-label">Start a build</div>
     <div id="formWrap">
       <form id="contactForm" onsubmit="submitForm(event)">
       <div class="form-grid">
@@ -332,6 +331,10 @@
         <div class="form-cell">
           <label for="f-phone">Phone</label>
           <input id="f-phone" name="phone" type="tel" placeholder="Optional">
+        </div>
+        <div class="form-cell">
+          <label for="f-budget">Budget</label>
+          <input id="f-budget" name="budget" type="text" placeholder="e.g. $2,000 – $5,000">
         </div>
         <div class="form-cell full">
           <label for="f-project">Project description</label>
@@ -355,7 +358,7 @@
   </section>
 
   <section>
-    <div class="sec-label"><b>06</b> — Contact</div>
+    <div class="sec-label">Contact</div>
     <div class="contact-grid">
       <a class="contact-cell" href="mailto:jeremiah@creativekonsoles.com">
         <div class="k">Email</div>
