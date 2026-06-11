@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeremiah Smith — I build and ship in a week</title>
+<meta name="description" content="Full-stack product builder. Idea to live deployed product in a week or less. React, Python, AI integration.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0c0d10;
+    --panel:#181b21;
+    --panel2:#1e222a;
+    --line:rgba(233,231,225,0.07);
+    --text:#f7f6f2;
+    --dim:#b0b3bc;
+    --faint:#7a7e8a;
+    --led:#5ce0a1;
+    --amber:#ffb454;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink); color:var(--text);
+    font-family:'Inter',sans-serif; font-weight:300;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .brand{font-family:'Space Grotesk'; font-weight:600; font-size:16px; letter-spacing:0.04em; text-decoration:none; color:var(--text);}
+  .brand span{color:var(--led);}
+  nav a.cta{
+    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.08em;
+    color:var(--ink); background:var(--led); text-decoration:none;
+    padding:10px 20px; border-radius:6px; font-weight:500;
+    transition:transform .2s, box-shadow .2s;
+  }
+  nav a.cta:hover{transform:translateY(-1px); box-shadow:0 6px 24px rgba(92,224,161,0.3);}
+
+  /* HERO */
+  .hero{padding:64px 0 56px;}
+  .hero .meter{
+    font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.18em;
+    color:var(--led); text-transform:uppercase; margin-bottom:28px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .meter .pulse{width:7px;height:7px;border-radius:50%;background:var(--led);box-shadow:0 0 12px var(--led);animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  h1{
+    font-family:'Space Grotesk'; font-weight:700; font-size:clamp(38px,6vw,68px);
+    line-height:1.04; letter-spacing:-0.02em; max-width:820px;
+  }
+  h1 em{font-style:normal; color:var(--led);}
+  .hero p{
+    margin-top:26px; font-size:18px; color:#dde0e8; max-width:560px; line-height:1.7;
+  }
+  .hero .actions{margin-top:40px; display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono'; font-size:13px; letter-spacing:0.06em;
+    padding:14px 28px; border-radius:6px; text-decoration:none; font-weight:500;
+    transition:all .25s;
+  }
+  .btn.primary{background:var(--led); color:var(--ink);}
+  .btn.primary:hover{transform:translateY(-2px); box-shadow:0 8px 30px rgba(92,224,161,0.35);}
+  .btn.ghost{border:1px solid var(--line); color:var(--dim);}
+  .btn.ghost:hover{color:var(--text); border-color:rgba(233,231,225,0.25);}
+
+  /* SECTION HEADERS */
+  section{padding:72px 0; border-top:1px solid var(--line);}
+  .sec-label{
+    font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.2em;
+    text-transform:uppercase; color:#c0c3cc; margin-bottom:36px;
+  }
+  .sec-label b{color:var(--amber); font-weight:500;}
+
+  /* PROCESS */
+  .process{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  @media(max-width:760px){.process{grid-template-columns:1fr;}}
+  .step{background:var(--panel); padding:30px 28px;}
+  .step .day{font-family:'IBM Plex Mono'; font-size:11px; color:var(--amber); letter-spacing:0.14em; text-transform:uppercase;}
+  .step h3{font-family:'Space Grotesk'; font-weight:600; font-size:20px; margin:12px 0 10px;}
+  .step p{font-size:14px; color:#ced2db; line-height:1.7;}
+
+  /* CONSOLE / WORK */
+  .console{display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .channel{
+    background:var(--panel); display:grid;
+    grid-template-columns: 54px 1.2fr 2fr auto;
+    align-items:center; gap:22px; padding:22px 26px;
+    transition:background .3s; text-decoration:none; color:inherit;
+  }
+  .channel:hover{background:var(--panel2);}
+  @media(max-width:760px){
+    .channel{grid-template-columns:40px 1fr; grid-template-rows:auto auto;}
+    .channel .desc{grid-column:1/-1;}
+    .channel .status{grid-column:1/-1; justify-self:start;}
+  }
+  /* fader */
+  .fader{position:relative; width:6px; height:54px; background:#23262d; border-radius:3px; justify-self:center;}
+  .fader::after{
+    content:''; position:absolute; left:50%; transform:translateX(-50%);
+    width:18px; height:10px; border-radius:2px;
+    background:linear-gradient(180deg,#3a3e47,#23262d);
+    border:1px solid rgba(233,231,225,0.15);
+    top:var(--pos,8%);
+  }
+  .channel.live .fader{background:linear-gradient(180deg, var(--led) 0%, #23262d 70%);}
+  .ch-name{font-family:'Space Grotesk'; font-weight:600; font-size:18px;}
+  .ch-name small{display:block; font-family:'IBM Plex Mono'; font-weight:400; font-size:11px; color:#a8acb7; letter-spacing:0.08em; margin-top:5px;}
+  .desc{font-size:14px; color:#ced2db; line-height:1.65;}
+  .status{
+    font-family:'IBM Plex Mono'; font-size:10px; letter-spacing:0.16em; text-transform:uppercase;
+    padding:6px 14px; border-radius:100px; white-space:nowrap;
+  }
+  .status.live{color:var(--led); border:1px solid rgba(92,224,161,0.3);}
+  .status.dev{color:var(--amber); border:1px solid rgba(255,180,84,0.3);}
+
+  /* STACK */
+  .stack{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{
+    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.04em;
+    border:1px solid rgba(233,231,225,0.12); color:#ced2db; border-radius:6px; padding:9px 16px;
+    transition:all .25s;
+  }
+  .chip:hover{color:var(--text); border-color:rgba(233,231,225,0.2);}
+
+  /* SPEED BANNER */
+  .speed{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:40px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;
+  }
+  .speed h2{font-family:'Space Grotesk'; font-weight:600; font-size:clamp(22px,3.4vw,32px); line-height:1.25; max-width:560px;}
+  .speed h2 em{font-style:normal; color:var(--amber);}
+
+  /* CONTACT */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  @media(max-width:640px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-cell{background:var(--panel); padding:30px 28px; text-decoration:none; color:inherit; transition:background .3s;}
+  .contact-cell:hover{background:var(--panel2);}
+  .contact-cell .k{font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#c0c3cc;}
+  .contact-cell .v{font-family:'Space Grotesk'; font-size:19px; font-weight:500; margin-top:10px; word-break:break-all;}
+
+  footer{padding:40px 0 60px; color:var(--faint); font-size:12px; font-family:'IBM Plex Mono'; letter-spacing:0.06em; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+
+  @media (prefers-reduced-motion: reduce){ .pulse{animation:none;} }
+
+  /* FORM */
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-bottom:16px;}
+  @media(max-width:640px){.form-grid{grid-template-columns:1fr;}}
+  .form-cell{background:var(--panel); padding:22px 24px; display:flex; flex-direction:column; gap:8px;}
+  .form-cell.full{grid-column:1/-1;}
+  .form-cell label{font-family:'IBM Plex Mono'; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:#a8acb7;}
+  .form-cell input, .form-cell textarea, .form-cell select{
+    background:transparent; border:none; outline:none;
+    font-family:'Space Grotesk'; font-size:16px; font-weight:400;
+    color:var(--text); width:100%; resize:none;
+    caret-color:var(--led);
+  }
+  .form-cell input::placeholder, .form-cell textarea::placeholder{color:#7a7e8a;}
+  .form-cell select option{background:var(--panel); color:var(--text);}
+  .form-cell:focus-within{background:var(--panel2);}
+  .form-submit{
+    width:100%; font-family:'IBM Plex Mono'; font-size:13px; letter-spacing:0.1em;
+    text-transform:uppercase; padding:18px; border-radius:8px; border:none; cursor:pointer;
+    background:var(--led); color:var(--ink); font-weight:600;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .form-submit:hover{transform:translateY(-2px); box-shadow:0 8px 30px rgba(92,224,161,0.35);}
+  .form-submit:disabled{opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none;}
+  .form-thanks{
+    display:none; text-align:center; padding:48px 28px;
+    background:var(--panel); border:1px solid rgba(92,224,161,0.2);
+    border-radius:12px;
+  }
+  .form-thanks h3{font-family:'Space Grotesk'; font-size:26px; font-weight:600; color:var(--led); margin-bottom:12px;}
+  .form-thanks p{color:#ced2db; font-size:15px; line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <a href="https://creativekonsoles.com" target="_blank" rel="noopener" class="brand">CREATIVE <span>K</span>ONSOLES</a>
+    <a class="cta" href="mailto:jeremiah@creativekonsoles.com">START A BUILD</a>
+  </nav>
+
+  <div class="hero">
+    <div class="meter"><span class="pulse"></span>AVAILABLE FOR BUILDS</div>
+    <h1>Idea to live product.<br><em>One week or less.</em></h1>
+    <p>I'm Jeremiah Smith — founder of Creative Konsoles. I design, build, and deploy AI-native products end to end: frontend, backend, and intelligence built into the core, live on a real domain. Every product I ship runs on AI — multi-model consensus engines, preference learning, real-time synthesis. No handoffs, no committees, no six-week discovery phase.</p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:jeremiah@creativekonsoles.com">jeremiah@creativekonsoles.com</a>
+      <a class="btn ghost" href="tel:4138345062">413-834-5062</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-label"><b>01</b> — How I build</div>
+    <div class="process">
+      <div class="step">
+        <div class="day">Day 1</div>
+        <h3>Scope</h3>
+        <p>One call. We define exactly what ships: features, stack, domain. You get a fixed quote and a fixed ship date before anything starts.</p>
+      </div>
+      <div class="step">
+        <div class="day">Days 2–6</div>
+        <h3>Build</h3>
+        <p>Heads-down execution with daily progress you can see at a live URL. You react, I adjust. Nothing waits for a weekly meeting.</p>
+      </div>
+      <div class="step">
+        <div class="day">Day 7</div>
+        <h3>Ship</h3>
+        <p>Deployed to production on your domain with SSL, monitoring, and handoff docs. You own the code and the repo from day one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label"><b>02</b> — Shipped &amp; running</div>
+    <div class="console">
+      <a class="channel live" href="https://stream.creativekonsoles.com" target="_blank" rel="noopener">
+        <div class="fader" style="--pos:8%"></div>
+        <div class="ch-name">StreamFader<small>stream.creativekonsoles.com</small></div>
+        <div class="desc">Streaming discovery engine with a critic/audience blend fader, preference learning, and a 5-AI consensus ranking system.</div>
+        <div class="status live">Live</div>
+      </a>
+      <a class="channel live" href="https://5i.creativekonsoles.com" target="_blank" rel="noopener">
+        <div class="fader" style="--pos:8%"></div>
+        <div class="ch-name">5i<small>5i.creativekonsoles.com</small></div>
+        <div class="desc">Five-model AI edge detector running against live Kalshi prediction markets — consensus signals from competing models.</div>
+        <div class="status live">Live</div>
+      </a>
+      <a class="channel live" href="https://aigain.creativekonsoles.com/" target="_blank" rel="noopener">
+        <div class="fader" style="--pos:8%"></div>
+        <div class="ch-name">AiGain<small>aigain.creativekonsoles.com</small></div>
+        <div class="desc">Enterprise-grade AI platform — polished, client-ready interface built for business deployment.</div>
+        <div class="status live">Live</div>
+      </a>
+      <a class="channel live" href="https://time.creativekonsoles.com" target="_blank" rel="noopener">
+        <div class="fader" style="--pos:8%"></div>
+        <div class="ch-name">Time<small>time.creativekonsoles.com</small></div>
+        <div class="desc">Atmospheric meditation timer — clean session timing built for daily practice.</div>
+        <div class="status live">Live</div>
+      </a>
+      <a class="channel live" href="https://melt.creativekonsoles.com" target="_blank" rel="noopener">
+        <div class="fader" style="--pos:8%"></div>
+        <div class="ch-name">Melt<small>melt.creativekonsoles.com</small></div>
+        <div class="desc">Deep relaxation timer — slow, immersive session format for extended stillness practice.</div>
+        <div class="status live">Live</div>
+      </a>
+      <a class="channel live" href="https://memoir.creativekonsoles.com" target="_blank" rel="noopener">
+        <div class="fader" style="--pos:8%"></div>
+        <div class="ch-name">Memoir<small>memoir.creativekonsoles.com</small></div>
+        <div class="desc">AI-guided memoir platform — three capture modes, editorial layer, and a printed physical book as the final artifact.</div>
+        <div class="status live">Live</div>
+      </a>
+      <div class="channel">
+        <div class="fader" style="--pos:34%"></div>
+        <div class="ch-name">AILIV<small>grail.creativekonsoles.com</small></div>
+        <div class="desc">40-biomarker orbital health dashboard with AI health synthesis — biometric data rendered as a living interface.</div>
+        <div class="status dev">Private Beta</div>
+      </div>
+      <div class="channel">
+        <div class="fader" style="--pos:34%"></div>
+        <div class="ch-name">Mechanic<small>mechanic.creativekonsoles.com</small></div>
+        <div class="desc">Diagnostic assistant for car owners — symptoms in, plain-English diagnosis and repair guidance out.</div>
+        <div class="status dev">Private Beta</div>
+      </div>
+      <div class="channel">
+        <div class="fader" style="--pos:34%"></div>
+        <div class="ch-name">Kalshi Konnektor<small>trading automation</small></div>
+        <div class="desc">Automated trading infrastructure for Kalshi prediction markets — multi-key API rotation and live order management.</div>
+        <div class="status dev">Private Beta</div>
+      </div>
+      <div class="channel">
+        <div class="fader" style="--pos:55%"></div>
+        <div class="ch-name">Moment<small>biometric meditation</small></div>
+        <div class="desc">Wearable-connected meditation platform — Apple Watch biomarkers drive a real-time particle-rendered human body that tells you when to pause.</div>
+        <div class="status dev" style="color:var(--amber);border-color:rgba(255,180,84,0.3);">In Build</div>
+      </div>
+      <div class="channel">
+        <div class="fader" style="--pos:55%"></div>
+        <div class="ch-name">DAW Doctor<small>for musicians</small></div>
+        <div class="desc">Web tool that diagnoses and fixes issues inside DAW project files — built from 20 years of audio production experience.</div>
+        <div class="status dev" style="color:var(--amber);border-color:rgba(255,180,84,0.3);">In Build</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label"><b>03</b> — Stack · AI-native by default</div>
+    <p style="color:#ced2db; font-size:15px; line-height:1.7; max-width:640px; margin-bottom:28px;">AI isn't a feature I bolt on — it's how I build. I work across every major model provider and pick the right engine for each job: consensus systems that pit five models against each other, preference engines that learn from every click, and interfaces that respond to live data in real time.</p>
+    <div class="stack">
+      <span class="chip">React</span>
+      <span class="chip">Python</span>
+      <span class="chip">Node.js</span>
+      <span class="chip">Supabase</span>
+      <span class="chip">Railway</span>
+      <span class="chip">Anthropic API</span>
+      <span class="chip">OpenAI API</span>
+      <span class="chip">Google AI API</span>
+      <span class="chip">Grok API</span>
+      <span class="chip">DeepSeek API</span>
+      <span class="chip">Mistral API</span>
+      <span class="chip">Stripe</span>
+      <span class="chip">HTML Canvas</span>
+      <span class="chip">Tailwind</span>
+      <span class="chip">PostgreSQL</span>
+      <span class="chip">REST APIs</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label"><b>05</b> — Start a build</div>
+    <div id="formWrap">
+      <form id="contactForm" onsubmit="submitForm(event)">
+      <div class="form-grid">
+        <div class="form-cell">
+          <label for="f-name">Name</label>
+          <input id="f-name" name="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="form-cell">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-cell">
+          <label for="f-phone">Phone</label>
+          <input id="f-phone" name="phone" type="tel" placeholder="Optional">
+        </div>
+        <div class="form-cell full">
+          <label for="f-project">Project description</label>
+          <textarea id="f-project" name="project" rows="5" placeholder="Tell me what you're building — the problem, the audience, what shipped looks like to you." required></textarea>
+        </div>
+      </div>
+      <button type="submit" class="form-submit" id="submitBtn">Send it — I'll respond within 24 hours</button>
+      </form>
+    </div>
+    <div class="form-thanks" id="formThanks">
+      <h3>Got it.</h3>
+      <p>I'll review your project and get back to you within 24 hours.<br>In the meantime — <a href="https://creativekonsoles.com" style="color:var(--led); text-decoration:none;">browse what's already shipped.</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="speed">
+      <h2>Most agencies take six weeks to send a proposal.<br><em>I'll have it live.</em></h2>
+      <a class="btn primary" href="mailto:jeremiah@creativekonsoles.com">Get a fixed quote</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label"><b>06</b> — Contact</div>
+    <div class="contact-grid">
+      <a class="contact-cell" href="mailto:jeremiah@creativekonsoles.com">
+        <div class="k">Email</div>
+        <div class="v">jeremiah@creativekonsoles.com</div>
+      </a>
+      <a class="contact-cell" href="tel:4138345062">
+        <div class="k">Phone</div>
+        <div class="v">413-834-5062</div>
+      </a>
+      <a class="contact-cell" href="https://github.com/papjamzzz" target="_blank" rel="noopener">
+        <div class="k">GitHub</div>
+        <div class="v">github.com/papjamzzz</div>
+      </a>
+      <a class="contact-cell" href="https://x.com/CKonsoles" target="_blank" rel="noopener">
+        <div class="k">Twitter / X</div>
+        <div class="v">@CKonsoles</div>
+      </a>
+      <a class="contact-cell" href="https://www.linkedin.com/in/jeremiahsmith3335/" target="_blank" rel="noopener">
+        <div class="k">LinkedIn</div>
+        <div class="v">Jeremiah Smith</div>
+      </a>
+      <a class="contact-cell" href="https://www.reddit.com/user/MatrixMix" target="_blank" rel="noopener">
+        <div class="k">Reddit</div>
+        <div class="v">u/MatrixMix</div>
+      </a>
+      <a class="contact-cell" href="https://creativekonsoles.com" target="_blank" rel="noopener">
+        <div class="k">Studio</div>
+        <div class="v">creativekonsoles.com</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-bottom:0;">
+    <div style="text-align:center; padding:32px 0 0; border-top:1px solid var(--line);">
+      <a href="https://creativekonsoles.com" target="_blank" rel="noopener"
+         style="font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.14em; color:var(--led); text-decoration:none; text-transform:uppercase;">
+        creativekonsoles.com ↗
+      </a>
+    </div>
+  </div>
+  <footer>
+    <div>© 2026 Creative Konsoles — Boston, MA</div>
+    <div>BUILT IN A DAY. OBVIOUSLY.</div>
+  </footer>
+
+</div>
+
+<script>
+async function submitForm(e){
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const project = document.getElementById('f-project').value.trim();
+  if(!name || !email || !project){
+    alert('Please fill in your name, email, and project description.');
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  try{
+    const res = await fetch('https://formspree.io/f/maqzpegz',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name, email, phone, message: project})
+    });
+    const data = await res.json();
+    if(res.ok){
+      document.getElementById('formWrap').style.display='none';
+      const thanks = document.getElementById('formThanks');
+      thanks.style.display='block';
+      thanks.scrollIntoView({behavior:'smooth', block:'center'});
+    } else {
+      btn.disabled=false;
+      btn.textContent="Send it — I'll respond within 24 hours";
+      alert('Something went wrong: ' + (data.error || 'unknown error') + '. Please email jeremiah@creativekonsoles.com directly.');
+    }
+  } catch(err){
+    btn.disabled=false;
+    btn.textContent="Send it — I'll respond within 24 hours";
+    alert('Network error. Please email jeremiah@creativekonsoles.com directly.');
+  }
+}
+</script>
+</body>
+</html>
